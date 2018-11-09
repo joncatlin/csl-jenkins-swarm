@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+
+  jenkins-master:
+    image: csanchez/jenkins-swarm
+    volumes:
+      - /mount/VM-File-Storage/jenkins-master:/var/jenkins_home
+    ports:
+      - "8080:8080"
+#      - "5000:5000"
+    networks:
+      - jenkins_net
+
+  jenkins-slave:
+    image: csanchez/jenkins-swarm-slave
+    networks:
+      - jenkins_net
+    command: -username jenkins -password jenkins -executors 1
+
+#docker run -d --link jenkins:jenkins csanchez/jenkins-swarm-slave -username jenkins -password jenkins -executors 1
+
+
+
+networks:
+  jenkins_net:
