@@ -1,0 +1,57 @@
+version: '3.4'
+
+networks:
+  jenkins_net:
+
+secrets:
+  jenkinsUser:
+    external: true
+  jenkinsPassword:
+    external: true
+  jenkinsSwarm:
+    external: true
+
+services:
+  jenkins-master:
+    image: joncatlin/jenkins-swarm-master
+    volumes:
+      - /mount/VM-File-Storage/jenkins-master:/var/jenkins_home
+    ports:
+      - "8080:8080"
+    networks:
+      - jenkins_net
+    secrets:
+      - source: jenkinsUser
+        target: jenkinsUser
+        uid: '1000'
+        mode: 0440
+      - source: jenkinsPassword
+        target: jenkinsPassword
+        uid: '1000'
+        mode: 0440
+
+  jenkins-slave:
+    image: joncatlin/jenkins-swarm-slave
+    networks:
+      - jenkins_net
+    secrets:
+      - source: jenkinsSwarm
+        target: jenkinsSwarm
+        mode: 0440
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 30s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 20s
+# The following lines are the ones used to set up the secrets for testing
+# echo admin | docker secret create jenkinsUser -
+# echo admin | docker secret create jenkinsPassword -
+# echo -master http://jenkins-master:8080 -password admin -username admin | docker secret create jenkinsSwarm -
+
+
+

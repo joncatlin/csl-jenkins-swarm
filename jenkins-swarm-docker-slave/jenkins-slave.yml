@@ -1,0 +1,23 @@
+version: '3.4'
+
+networks:
+  jenkins_net:
+
+secrets:
+  jenkinsSwarm:
+    external: true
+
+services:
+  jenkins-slave:
+    image: joncatlin/jenkins-swarm-slave
+    networks:
+      - jenkins_net
+    secrets:
+      - source: jenkinsSwarm
+        target: jenkinsSwarm
+        mode: 0440
+
+# The following lines are the ones used to set up the secrets for testing
+# echo admin | docker secret create jenkinsUser -
+# echo admin | docker secret create jenkinsPassword -
+# echo -master http://jenkins-master:8080 -password admin -username admin | docker secret create jenkinsSwarm -

@@ -1,0 +1,35 @@
+version: '3.4'
+
+networks:
+  jenkins_net:
+
+secrets:
+  jenkinsUser:
+    external: true
+  jenkinsPassword:
+    external: true
+  jenkinsSwarm:
+    external: true
+
+services:
+  jenkins-master:
+    image: joncatlin/jenkins-swarm-master
+    volumes:
+      - /mount/VM-File-Storage/jenkins-master:/var/jenkins_home
+    ports:
+      - "8080:8080"
+    networks:
+      - jenkins_net
+    secrets:
+      - source: jenkinsUser
+        target: jenkinsUser
+        uid: '1000'
+        mode: 0440
+      - source: jenkinsPassword
+        target: jenkinsPassword
+        uid: '1000'
+        mode: 0440
+
+# echo admin | docker secret create jenkinsUser -
+# echo admin | docker secret create jenkinsPassword -
+# echo -master http://jenkins-master:8080 -password admin -username admin | docker secret create jenkinsSwarm -
