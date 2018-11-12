@@ -32,6 +32,8 @@ services:
 
   jenkins-slave:
     image: joncatlin/jenkins-swarm-slave
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - jenkins_net
     secrets:
