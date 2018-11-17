@@ -137,8 +137,14 @@ which contains stages for checkout, build, publish, test and deploy of the demo 
 To create a pipeline, select `New Item` from the top level Jenkins menu. Then enter the name of the item to create, `demo-app` and select `Pipeline` then `OK`. Select the `Pipeline` tab on the display and fill in the details as shown below:-
 ![alt text](demo-app-pipeline.png)
 
+Then click `Save` button and run the job. Once the job 
+
 ## Create a job to deploy the built container to another Swarm
 As the development process proceeds the container will need to be deployed into a more secure environment, such as `staging` or `production`. In order to accomplish this we will create a regular freestyle Jenkins job.
 
-To create the job, select `New Item` from the top level Jenkins menu. Then enter the name of the item to create, `deploy-demo-app-to-prod` and select `Freestyle project` then `OK`. Select the `Pipeline` tab on the display and fill in the details as shown below:-
+To create the job, select `New Item` from the top level Jenkins menu. Then enter the name of the item to create, `deploy-demo-app-to-prod` and select `Freestyle project` then `OK`. Select the `Source Code Management` tab on the display and fill in the details as shown below:-
 ![alt text](deploy-demo-app-scm.png)
+
+Then select the `Build Environment` tab on the display and fill in the details shown below:-
+![alt text](deploy-demo-app-be.png)
+
