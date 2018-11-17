@@ -50,10 +50,6 @@ services:
         delay: 5s
         max_attempts: 3
         window: 20s
-# The following lines are the ones used to set up the secrets for testing
-# echo admin | docker secret create jenkinsUser -
-# echo admin | docker secret create jenkinsPassword -
-# echo -master http://jenkins-master:8080 -password admin -username admin | docker secret create jenkinsSwarm -
 
 
 

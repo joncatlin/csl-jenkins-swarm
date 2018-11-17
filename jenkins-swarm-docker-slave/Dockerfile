@@ -4,17 +4,12 @@ FROM docker:latest
 RUN apk --update add openjdk8-jre git python3
 RUN wget -O swarm-client.jar http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/3.14/swarm-client-3.14.jar
 
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+# Copy the ssh key files to be used to remote into other machines
+COPY ./ssh /.ssh
 
+# Create the directory for Jenkins to use
 RUN mkdir -p /tmp/jenkins
 
-# This does not work as it gets stuck trying to make a connection to the master
-#CMD ["/entrypoint.sh"]
-
-# This also does not seem to work for same reason
-#CMD sh ./entrypoint.sh
-
-# This works!
+# Start the Jenkins swarm client
 CMD java -jar swarm-client.jar -labels=docker -executors=1 -fsroot=/tmp/jenkins -name=docker-$(hostname) $(cat /run/secrets/jenkinsSwarm)
 

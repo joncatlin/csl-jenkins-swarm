@@ -1,0 +1,35 @@
+// Copy files from the image to the JENKINS_HOME in order to ensure they are setup correctly
+def sourceFile
+def targetFile
+
+try {
+    sourceFile = '/usr/share/jenkins/secrets/filepath-filters.d/50-gui.conf'
+    targetFile = '/var/jenkins_home/secrets/filepath-filters.d/50-gui.conf'
+
+    println "--> Copy BUT DO NOT OVERWITE file from: " + sourceFile + " to: " + targetFile
+
+    java.nio.file.Files.copy(
+        new java.io.File(sourceFile).toPath(),
+        new java.io.File(targetFile).toPath(),
+        java.nio.file.StandardCopyOption.COPY_ATTRIBUTES );
+    println "--> SUCCESS in copying file from: " + sourceFile + " to: " + targetFile
+
+
+
+    sourceFile = '/usr/share/jenkins/secrets/whitelisted-callables.d/gui.conf'
+    targetFile = '/var/jenkins_home/secrets/whitelisted-callables.d/gui.conf'
+
+    println "--> Copy BUT DO NOT OVERWITE file from: " + sourceFile + " to: " + targetFile
+
+    java.nio.file.Files.copy(
+        new java.io.File(sourceFile).toPath(),
+        new java.io.File(targetFile).toPath(),
+        java.nio.file.StandardCopyOption.COPY_ATTRIBUTES );
+    println "--> SUCCESS in copying file from: " + sourceFile + " to: " + targetFile
+
+}
+catch (Exception e)
+{
+    println "--> Exception copying file " + sourceFile + ": " + e.getMessage()
+}
+
