@@ -13,6 +13,7 @@ secrets:
 
 services:
   jenkins-master:
+    hostname: jenkins-master
     image: joncatlin/jenkins-swarm-master
     volumes:
       - /mount/VM-File-Storage/jenkins-master:/var/jenkins_home
@@ -31,6 +32,7 @@ services:
         mode: 0440
 
   jenkins-slave:
+    hostname: jenkins-slave
     image: joncatlin/jenkins-swarm-slave
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

@@ -130,9 +130,15 @@ Add a credential to publish the demo container to a docker registry. Ensure the 
 ![alt text](Demo-dockerhub-credentials.png)
 This will be used to sign into the dockerhub registry to publish the built container.
 
-## Create a pipeline to build, test and deploy the demo container
+## Create a pipeline to build, test and locally deploy the demo container
 The demo container code is in github at `https://github.com/joncatlin/csl-test-jenkins.git` and the repo contains a   [Jenkinsfile](https://github.com/joncatlin/csl-test-jenkins/blob/master/Jenkinsfile)
-which contains stages for checkout, build, publish, test and deploy of the demo container.
+which contains stages for checkout, build, publish, test and deploy of the demo container. Effectively this Jenkinsfile contains all the commands necessary for the normal stages of a development process.
 
 To create a pipeline, select `New Item` from the top level Jenkins menu. Then enter the name of the item to create, `demo-app` and select `Pipeline` then `OK`. Select the `Pipeline` tab on the display and fill in the details as shown below:-
 ![alt text](demo-app-pipeline.png)
+
+## Create a job to deploy the built container to another Swarm
+As the development process proceeds the container will need to be deployed into a more secure environment, such as `staging` or `production`. In order to accomplish this we will create a regular freestyle Jenkins job.
+
+To create the job, select `New Item` from the top level Jenkins menu. Then enter the name of the item to create, `deploy-demo-app-to-prod` and select `Freestyle project` then `OK`. Select the `Pipeline` tab on the display and fill in the details as shown below:-
+![alt text](deploy-demo-app-scm.png)
