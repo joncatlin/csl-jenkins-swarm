@@ -1,7 +1,7 @@
-# Jenkins in Docker Swarm
+# 1. Jenkins in Docker Swarm
 This repo contains a reference implementation of Jenkins containers running in a docker swarm environment. It is designed to show how Jenkins can run in a swarm, build, test and locally deploy a container to the same swarm that Jenkins is running in. The reference implementation also shows how a container can be deployed to another swarm using ssh. This demonstrates how a development swarm cluster could be used to deploy into a more secure staging or production swarm.
 
-# Logical view of the deployment
+# 2. Logical view of the deployment
 The deployment process will create a single Jenkins Master and several Jenkins slaves inside of a single docker swarm. More slaves can be added by changing the number of slave replicas in the compose file called [jenkins-swarm.yml](jenkins-swarm.yml). The file contains the following configuraiton extract. To increase the number of Jenkins slaves just increase the `replicas: 3` to the number of slaves required :-
 
 ```

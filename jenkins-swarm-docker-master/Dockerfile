@@ -9,7 +9,7 @@ COPY ./ssh /.ssh
 
 # Install the jenkins plugins and all their dependencies
 RUN /usr/local/bin/install-plugins.sh swarm:3.14 workflow-aggregator:2.6 github:1.29.3 publish-over-ssh:1.20.1 build-user-vars-plugin:1.5 \
-    cloudbees-folder:6.7 greenballs:1.15
+    cloudbees-folder:6.7 greenballs:1.15 pipeline-aws:1.33
 
 # Set the option to not run the setup wizard as all setup is done through the groovy initialization scrips below
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
